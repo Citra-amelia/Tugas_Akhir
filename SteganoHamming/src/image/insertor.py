@@ -105,7 +105,7 @@ class Inserter:
                         for i in range(8):
                             for j in range(8):
                                 if (i > 0 or j > 0) and index < len(array_bit):
-                                    current_bit[i, j] = array_bit[index]
+                                    # current_bit[i, j] = array_bit[index]
                                     index += 1
 
                         if self.complexity(current_bit) <= self.alpha:
@@ -128,23 +128,23 @@ class Inserter:
         h = idx // (self.color * self.w)
         return h, w, color
 
-    # def insert_message(self, encrypted=False, method='bpcs', alpha=0.3):
-    #     self.seed = self.count_seed()
-    #     self.method = method
-    #     self.alpha = alpha
+    def insert_message(self, encrypted=False, method='bpcs', alpha=0.3):
+        self.seed = self.count_seed()
+        self.method = method
+        self.alpha = alpha
 
-    #     self.string_message = str(len(self.message)) + '#' + self.extension + '#' + self.message
-    #     self.encrypt_message(encrypted)
-    #     array_bit = list(self.string_message)
+        self.string_message = str(len(self.message)) + '#' + self.extension + '#' + self.message
+        # self.encrypt_message(encrypted)
+        array_bit = list(self.string_message)
 
-    #     self.block_list = []
-    #     for h in range(0, self.h - (self.h % 8), 8):
-    #         for w in range(0, self.w - (self.w % 8), 8):
-    #             for color in range(0, self.color):
-    #                 self.block_list += [(h, w, color)]
-    #     self.pbc_to_cgc()
-    #     self.modify_block(array_bit)
-    #     self.cgc_to_pbc()
-    #     self.ndarray[0, 0, 2] = self.ndarray[0, 0, 2] & 254 | 1
+        self.block_list = []
+        for h in range(0, self.h - (self.h % 8), 8):
+            for w in range(0, self.w - (self.w % 8), 8):
+                for color in range(0, self.color):
+                    self.block_list += [(h, w, color)]
+        self.pbc_to_cgc()
+        self.modify_block(array_bit)
+        self.cgc_to_pbc()
+        self.ndarray[0, 0, 2] = self.ndarray[0, 0, 2] & 254 | 1
 
-    #     return self.ndarray
+        return self.ndarray

@@ -19,26 +19,26 @@ class ImageInsertionForm(tk.Frame):
         hg.insert_header(self, 'Insert Image')
 
         self.render_file_frame()
-        # self.render_message_frame()
+        self.render_message_frame()
         self.render_method_frame()
-        self.render_image_secret_frame()
+        # self.render_image_secret_frame()
         self.render_alpha_frame()
         self.render_key_frame()
-        self.render_options_frame()
+        # self.render_options_frame()
         self.render_output_frame()
         self.render_execute_frame()
 
     def initialize(self):
         self.TITLE_ROW = 0
         self.FILE_ROW = 1
-        self.SECRET_IMAGE_ROW = 2
-        # self.MESSAGE_ROW = 2
+        # self.SECRET_IMAGE_ROW = 2
+        self.MESSAGE_ROW = 2
         self.METHOD_ROW = 3
         self.ALPHA_ROW = 4
         self.KEY_ROW = 5
-        self.OPTIONS_ROW = 6
-        self.OUTPUT_ROW = 7
-        self.EXECUTE_ROW = 8
+        # self.OPTIONS_ROW = 6
+        self.OUTPUT_ROW = 6
+        self.EXECUTE_ROW = 7
 
         self.DEFAULT_OUT_FILENAME = 'insert_result'
         self.DEFAULT_ALPHA = '0.3'
@@ -160,7 +160,7 @@ class ImageInsertionForm(tk.Frame):
     def execute(self):
         print('Insertion Started!')
         print('> Image dir:', self.image_dir.get())
-        print('> secret Image dir:', self.secret_image_dir.get())
+        # print('> secret Image dir:', self.secret_image_dir.get())
         print('> Method:', self.method.get())
         print('> Alpha (for BPCS only):', self.alpha.get())
         print('> Message dir:', self.message_dir.get())
@@ -170,21 +170,21 @@ class ImageInsertionForm(tk.Frame):
         print('> Output ext:', self.output_ext.get())
 
         file_dir = self.image_dir.get()
-        secret_image = self.secret_image_dir.get()
+        # secret_image = self.secret_image_dir.get()
         method = self.method.get()
         alpha = float(self.alpha.get())
-        # message_dir = self.message_dir.get()
+        message_dir = self.message_dir.get()
         key = self.key_entry.get()
         output_filename = self.output_name.get()
         output_fileext = self.output_ext.get()
 
-        if file_dir == '' or secret_image == '' or key == '' or output_filename == '':
+        if file_dir == '' or message_dir == '' or key == '' or output_filename == '':
             return
 
-        insert = Inserter(file_dir, secret_image, key)
+        insert = Inserter(file_dir, message_dir, key)
 
         image_modified = insert.insert_message(
-            encrypted=self.encrypt.get(),
+            # encrypted=self.encrypt.get(),
             method=method,
             alpha=alpha
         )
