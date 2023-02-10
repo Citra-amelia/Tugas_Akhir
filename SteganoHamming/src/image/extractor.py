@@ -84,48 +84,53 @@ class Extractor:
         self.seed = self.count_seed()
 
         extracted = [self.ndarray[self.get_ndarray_pos(i)] & 1 for i in range(self.h * self.w * self.color)]
-        encrypted = extracted[0]
-        random_pixels = extracted[1]
+        print(extracted)
+        return 0
+        # encrypted = extracted[0]
+        # random_pixels = extracted[1]
 
-        index = 0
-        mod_index = 8
+        # index = 0
+        # mod_index = 8
 
-        message = ""
-        temp = ""
+        # message = ""
+        # temp = ""
 
-        alpha = self.alpha
-        block_list = []
-        for h in range(0, self.h - (self.h % 8), 8):
-            for w in range(0, self.w - (self.w % 8), 8):
-                for color in range(0, self.color):
-                    block_list += [(h, w, color)]
-        if random_pixels:
-            random.seed(self.seed)
-            random.shuffle(block_list)
-        self.pbc_to_cgc()
-        for bitplane in range(7, -1, -1):
-            for h, w, color in block_list:
-                if h != 0 and w != 0 and color != 0:
-                    matrix = self.ndarray[h:h+8, w:w+8, color] >> (7 - bitplane) & 1
-                    if self.complexity(matrix) > alpha:
-                        if matrix[0, 0]:
-                            matrix = self.conjugate(matrix)
-                        for i in range(8):
-                            for j in range(8):
-                                if i > 0 or j > 0:
-                                    extracted_bit = matrix[i][j]
-                                    if index % mod_index != (mod_index - 1):
-                                        temp += str(extracted_bit)
-                                    else:
-                                        temp += str(extracted_bit)
-                                        message += chr(int(temp, 2))
-                                        temp = ""
-                                    index += 1
+        # alpha = self.alpha
+        # block_list = []
 
-        if encrypted:
-            self.string_message = Hammingdecode(message)
-        else:
-            self.string_message = message
+        # for h in range(0, self.h - (self.h % 8), 8):
+        #     for w in range(0, self.w - (self.w % 8), 8):
+        #         for color in range(0, self.color):
+        #             block_list += [(h, w, color)]
+        # if random_pixels:
+        #     random.seed(self.seed)
+        #     random.shuffle(block_list)
+            
+        # self.pbc_to_cgc()
+
+        # for bitplane in range(7, -1, -1):
+        #     for h, w, color in block_list:
+        #         if h != 0 and w != 0 and color != 0:
+        #             matrix = self.ndarray[h:h+8, w:w+8, color] >> (7 - bitplane) & 1
+        #             if self.complexity(matrix) > alpha:
+        #                 if matrix[0, 0]:
+        #                     matrix = self.conjugate(matrix)
+        #                 for i in range(8):
+        #                     for j in range(8):
+        #                         if i > 0 or j > 0:
+        #                             extracted_bit = matrix[i][j]
+        #                             if index % mod_index != (mod_index - 1):
+        #                                 temp += str(extracted_bit)
+        #                             else:
+        #                                 temp += str(extracted_bit)
+        #                                 message += chr(int(temp, 2))
+        #                                 temp = ""
+        #                             index += 1
+
+        # if encrypted:
+        #     self.string_message = Hammingdecode(message)
+        # else:
+        #     self.string_message = message
 
     def parse_message(self):
         message_info = self.string_message.split("#")
@@ -136,6 +141,7 @@ class Extractor:
     def write_secret_message(self):
         init = len(str(self.len_message)) + len(str(self.extension)) + 2
         decoded = self.string_message[init : init + self.len_message]
+
         print(len(decoded))
         print(self.len_message)
 

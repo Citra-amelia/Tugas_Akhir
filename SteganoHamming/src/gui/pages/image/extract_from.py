@@ -99,8 +99,6 @@ class ImageExtractForm(tk.Frame):
         extract.extract_messages()
         extract.parse_message()
 
-        
-
         file_name = "output/" + output_filename + "." + extract.extension
         output_file = File(file_name)
         byte = extract.write_secret_message()
