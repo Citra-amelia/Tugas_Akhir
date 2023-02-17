@@ -70,7 +70,7 @@ def decompress_image_lzw(compressed_img_file, height, width):
 # Contoh pemakaian
 if __name__ == "__main__":
     # Baca gambar
-    img = cv2.imread("lambang-pancasila.png", cv2.IMREAD_GRAYSCALE)
+    img = cv2.imread("obat-tradisional.jpg", cv2.IMREAD_GRAYSCALE)
 
     # Kompresi gambar
     compressed_img = compress_image_lzw(img)
